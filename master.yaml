@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+
+  LambdaName:
+    Description: Llave
+    Type: String
+    Default: extrac_data_from_dynamo
+  LambdaRuntime:
+    Description: Runtime
+    Type: String
+    Default: python3.7
+    AllowedValues:
+         - python3.7
+         - python2.7
+         - ruby2.5
+         - nodejs8.10
+         - java8
+         - dotnetcore2.1
+  ZipName:
+    Description: Zip
+    Type: String
+    Default: lambda_function.zip
+  LambdaBucket:
+    Description: Bucket with the Code
+    Type: String
+    Default: itel-dsi-buckup
+
+
+Resources:
+  lambda:
+        Type: "AWS::CloudFormation::Stack"
+        DependsOn: dynamo
+        Properties:
+            TemplateURL: ''
+            Parameters:
+                LambdaName: !Ref LambdaName
+                LambdaRuntime: !Ref LambdaRuntime
+                ZipName: !Ref ZipName
