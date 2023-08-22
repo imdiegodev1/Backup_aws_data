@@ -9,7 +9,7 @@ class DynamoAccesor:
     def get_data_from_dynamo(self):
         response = self.table.scan()
 
-        return response['Items']
+        return response['Items'][0]
     
 class S3Accesor:
     def __init__(self):
@@ -30,6 +30,9 @@ def lambda_handler(event, context):
     dynamo_backend = DynamoAccesor(context['table'])
     db_elements = dynamo_backend.get_data_from_dynamo()
 
-
+    s3_object = S3Accesor()
+    s3_object.upload_file(context['file_name'], #Ex. folder_path/file_name.test
+                          context['bucket_name'],
+                          db_elements)
 
     return db_elements
