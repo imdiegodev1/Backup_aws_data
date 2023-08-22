@@ -24,9 +24,6 @@ Resources:
       MemorySize: 512
       Timeout: 600
       Role: !GetAtt LambdaRole.Arn
-      Environment:
-          Variables:
-              DYNAMO_PLATZI: !ImportValue DynamoPlatzi
 
   LambdaPolicyEC2:
       Type: AWS::IAM::ManagedPolicy

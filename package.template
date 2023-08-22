@@ -1,7 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-
 Parameters:
-
   LambdaName:
     Description: Llave
     Type: String
@@ -18,15 +16,17 @@ Parameters:
     Description: Bucket with the Code
     Type: String
     Default: itel-dsi-buckup
-
-
 Resources:
   lambda:
-        Type: "AWS::CloudFormation::Stack"
-        Properties:
-            TemplateURL: 'https://itel-dsi-buckup.s3.amazonaws.com/lambda.yaml'
-            Parameters:
-                LambdaName: !Ref LambdaName
-                LambdaRuntime: !Ref LambdaRuntime
-                ZipName: !Ref ZipName
-                LambdaBucket: !Ref LambdaBucket
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://itel-dsi-buckup.s3.amazonaws.com/lambda.yaml
+      Parameters:
+        LambdaName:
+          Ref: LambdaName
+        LambdaRuntime:
+          Ref: LambdaRuntime
+        ZipName:
+          Ref: ZipName
+        LambdaBucket:
+          Ref: LambdaBucket
