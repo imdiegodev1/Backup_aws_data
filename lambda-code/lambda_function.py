@@ -27,12 +27,12 @@ class S3Accesor:
 
 def lambda_handler(event, context):
 
-    dynamo_backend = DynamoAccesor(context['table'])
+    dynamo_backend = DynamoAccesor(event['table'])
     db_elements = dynamo_backend.get_data_from_dynamo()
 
     s3_object = S3Accesor()
-    s3_object.upload_file(context['file_name'], #Ex. folder_path/file_name.test
-                          context['bucket_name'],
+    s3_object.upload_file(event['file_name'], #Ex. folder_path/file_name.test
+                          event['bucket_name'],
                           db_elements)
 
     return db_elements
