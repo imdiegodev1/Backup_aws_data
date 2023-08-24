@@ -23,7 +23,7 @@ Resources:
     DependsOn: EventBridgeLambdaPermission
     Properties:
       Description: "Excecute Lambda function to backup data from Dynamo tables"
-      ScheduleExpression: "crom(0 0 */3 * ? *)"
+      ScheduleExpression: "crom(45 7 ? * MON, THU *)"
       State: ENABLED
       Name: !Ref EventBridgeName
       Targets:
