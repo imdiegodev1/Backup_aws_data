@@ -24,7 +24,7 @@ Resources:
     Properties:
       Description: "Excecute Lambda function to backup data from Dynamo tables"
       ScheduleExpression: "crom(0 0 */3 * ? *)"
-      State: ENABLE
+      State: ENABLED
       Name: !Ref EventBridgeName
       Targets:
         - Arn: !Ref LambdaArn
