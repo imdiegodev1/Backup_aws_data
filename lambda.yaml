@@ -110,7 +110,7 @@ Resources:
     Properties:
       ManagedPolicyArns:
         - !Ref LambdaPolicyDynamo
-        - !Ref LambdaPolicyEC2
+        - !Ref LambdaPolicyS3
         - !Ref LambdaPolicyCW
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -136,6 +136,7 @@ Resources:
                         - s3:ListAllMyBuckets
                         - s3:HeadBucket
                         - s3:ListObjects
+                        - s3:PutObject
                     Resource:
                         - "*"
                   -
