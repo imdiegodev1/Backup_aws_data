@@ -16,6 +16,10 @@ Parameters:
     Description: Bucket with the Code
     Type: String
     Default: itel-dsi-buckup
+  EventBridgeName:
+    Description: Name of the EventBridge rule
+    Type: String
+    Default: excecute_dynamo_backup
 Resources:
   lambda:
     Type: AWS::CloudFormation::Stack
@@ -30,3 +34,17 @@ Resources:
           Ref: ZipName
         LambdaBucket:
           Ref: LambdaBucket
+  eventbridge:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: lambda
+    Properties:
+      TemplateURL: https://itel-dsi-buckup.s3.amazonaws.com/eventbridge.yaml
+      Parameters:
+        LambdaName:
+          Ref: LambdaName
+        LambdaArn:
+          Fn::GetAtt:
+          - lambda
+          - Outputs.LambdaArn
+        EventBridgeName:
+          Ref: EventBridgeName

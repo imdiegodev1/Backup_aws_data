@@ -39,7 +39,7 @@ Resources:
     Type: "AWS::CloudFormation::Stack"
     DependsOn: lambda
     Properties:
-      TemplateURL: ""
+      TemplateURL: "https://itel-dsi-buckup.s3.amazonaws.com/eventbridge.yaml"
       Parameters:
         LambdaName: !Ref LambdaName
         LambdaArn: !GetAtt lambda.Outputs.LambdaArn

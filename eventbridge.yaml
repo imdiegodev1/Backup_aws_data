@@ -17,7 +17,6 @@ Resources:
       FunctionName: !Ref LambdaArn
       Action: lambda:InvokeFunction
       Principal: events.amazonaws.com
-      SourceArn: !GetAtt EventRuleNewCustomer.Arn
 
   EventBridgeFunction:
     Type: "AWS::Events::Rule"
