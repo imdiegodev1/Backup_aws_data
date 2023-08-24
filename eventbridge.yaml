@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+
+  LambdaName:
+    Type: String
+  LambdaArn:
+    Type: String
+  EventBridgeName:
+    Type: String
+
+Resources:
+
+  EventBridgeLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref LambdaArn
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt EventRuleNewCustomer.Arn
+
+  EventBridgeFunction:
+    Type: "AWS::Events::Rule"
+    DependsOn:
+      - EventBridgeLambdaPermission
+    Properties:
+      Description: "Excecute Lambda function to backup data from Dynamo tables"
+      ScheduleExpression: "crom(0 0 */3 * ? *)"
+      State: ENABLE
+      Name: !Ref EventBridgeName
+      Targets:
+        - Arn: !Ref LambdaArn
+          Id: !Ref LambdaName
